@@ -26,20 +26,30 @@ def sha256sum(filename):
     return h.hexdigest()
 
 
+def get_paper_path(pdf_file_path):
+    """Return the path where the paper's details are cached.
+    If the path does not exist yet, create it as well.
+    """
+
+    sha = sha256sum(pdf_file_path)
+    paper_path = os.path.join(CACHE_PATH,sha)
+    Path(paper_path).mkdir(parents=True, exist_ok=True)
+
+    return paper_path
+
 
 def get_references(pdf_file_path):
 
-    sha = sha256sum(pdf_file_path)
-    Path(CACHE_PATH).mkdir(exist_ok=True)
+    paper_path = get_paper_path(pdf_file_path)
 
     # raw_references contains the references as extracted
     # from the PDF by anystyle. They might be incorrect/noisy
-    raw_references_path = os.path.join(CACHE_PATH,f"{sha}.raw.refs.json")
+    raw_references_path = os.path.join(paper_path,"raw.refs.json")
 
     # references contains the reference list post-processed
     # through crossref (eg, including DOI). Some references
     # might be missing.
-    references_path = os.path.join(CACHE_PATH,f"{sha}.refs.json")
+    references_path = os.path.join(paper_path,"refs.json")
 
     # no reference extracted yet? 
     # run anystyle (and cache the result)

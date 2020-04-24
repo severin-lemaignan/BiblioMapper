@@ -1,0 +1,1343 @@
+[
+  {
+    "author": [
+      {
+        "family": "Ansuini",
+        "given": "C."
+      },
+      {
+        "family": "Cavallo",
+        "given": "A."
+      },
+      {
+        "family": "Bertone",
+        "given": "C."
+      },
+      {
+        "family": "Becchio",
+        "given": "C."
+      }
+    ],
+    "date": [
+      "2014"
+    ],
+    "title": [
+      "The visible face of intention: why kinematics matters"
+    ],
+    "volume": [
+      "5"
+    ],
+    "pages": [
+      "815"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Frontiers in psychology"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Baxter",
+        "given": "P."
+      },
+      {
+        "family": "Kennedy",
+        "given": "J."
+      },
+      {
+        "family": "Senft",
+        "given": "E."
+      },
+      {
+        "family": "Lemaignan",
+        "given": "S."
+      },
+      {
+        "family": "Belpaeme",
+        "given": "T."
+      }
+    ],
+    "date": [
+      "2016"
+    ],
+    "title": [
+      "From Characterising Three Years of HRI to Methodology and Reporting Recommendations"
+    ],
+    "container-title": [
+      "The Eleventh ACM/IEEE International Conference on Human Robot Interation (IEEE Press"
+    ],
+    "pages": [
+      "391–398"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Becchio",
+        "given": "C."
+      },
+      {
+        "family": "Koul",
+        "given": "A."
+      },
+      {
+        "family": "Ansuini",
+        "given": "C."
+      },
+      {
+        "family": "Bertone",
+        "given": "C."
+      },
+      {
+        "family": "Cavallo",
+        "given": "A."
+      },
+      {
+        "family": "Belpaeme",
+        "given": "T."
+      },
+      {
+        "family": "Kennedy",
+        "given": "J."
+      },
+      {
+        "family": "Baxter",
+        "given": "P."
+      },
+      {
+        "family": "Vogt",
+        "given": "P."
+      },
+      {
+        "family": "Krahmer",
+        "given": "E.E.J."
+      },
+      {
+        "family": "Kopp",
+        "given": "S."
+      },
+      {
+        "others": true
+      }
+    ],
+    "date": [
+      "2017",
+      "2015",
+      "2017"
+    ],
+    "title": [
+      "Seeing mental states: an experimental strategy for measuring the observability of other minds. Physics of life reviews",
+      "L2TOR-second language tutoring using social robots",
+      "Ue-hri: a new dataset for the study of user engagement in spontaneous human-robot interactions"
+    ],
+    "container-title": [
+      "Proceedings of the ICSR 2015 WONDER Workshop Ben-Youssef",
+      "Proceedings of the 19th ACM International Conference on Multimodal Interaction (ACM"
+    ],
+    "editor": [
+      {
+        "family": "A.",
+        "given": "Clavel"
+      },
+      {
+        "family": "C.",
+        "given": "Essid"
+      },
+      {
+        "family": "S.",
+        "given": "Bilac"
+      },
+      {
+        "family": "M.",
+        "given": "Chamoux"
+      },
+      {
+        "family": "M."
+      },
+      {
+        "family": "Lim",
+        "given": "A."
+      }
+    ],
+    "pages": [
+      "464–472"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Beyan",
+        "given": "C."
+      },
+      {
+        "family": "Carissimi",
+        "given": "N."
+      },
+      {
+        "family": "Capozzi",
+        "given": "F."
+      },
+      {
+        "family": "Vascon",
+        "given": "S."
+      },
+      {
+        "family": "Bustreo",
+        "given": "M."
+      },
+      {
+        "family": "Pierro",
+        "given": "A."
+      },
+      {
+        "others": true
+      }
+    ],
+    "date": [
+      "2016"
+    ],
+    "title": [
+      "Detecting emergent leader in a meeting environment using nonverbal visual features only"
+    ],
+    "container-title": [
+      "Proceedings of the 18th ACM International Conference on Multimodal Interaction (ACM"
+    ],
+    "pages": [
+      "317–324"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Breazeal",
+        "given": "C."
+      },
+      {
+        "family": "Gray",
+        "given": "J."
+      },
+      {
+        "family": "Berlin",
+        "given": "M."
+      }
+    ],
+    "date": [
+      "2009"
+    ],
+    "title": [
+      "An embodied cognition approach to mindreading skills for socially intelligent robots"
+    ],
+    "volume": [
+      "28"
+    ],
+    "pages": [
+      "656–680"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "The International Journal of Robotics Research"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Cao",
+        "given": "Z."
+      },
+      {
+        "family": "Simon",
+        "given": "T."
+      },
+      {
+        "family": "Wei",
+        "given": "S.E."
+      },
+      {
+        "family": "Sheikh",
+        "given": "Y."
+      },
+      {
+        "family": "Dautenhahn",
+        "given": "K."
+      },
+      {
+        "family": "Saunders",
+        "given": "J."
+      }
+    ],
+    "date": [
+      "2017",
+      "2011"
+    ],
+    "title": [
+      "Realtime multi-person 2d pose estimation using part affinity fields"
+    ],
+    "container-title": [
+      "CVPR",
+      "New Frontiers in Human Robot Interaction"
+    ],
+    "volume": [
+      "2"
+    ],
+    "publisher": [
+      "John Benjamins Publishing"
+    ],
+    "type": "article-journal"
+  },
+  {
+    "author": [
+      {
+        "family": "Domes",
+        "given": "G."
+      },
+      {
+        "family": "Heinrichs",
+        "given": "M."
+      },
+      {
+        "family": "Michel",
+        "given": "A."
+      },
+      {
+        "family": "Berger",
+        "given": "C."
+      },
+      {
+        "family": "Herpertz",
+        "given": "S.C."
+      }
+    ],
+    "date": [
+      "2007"
+    ],
+    "title": [
+      "Oxytocin improves “mind-reading” in humans"
+    ],
+    "volume": [
+      "61"
+    ],
+    "pages": [
+      "731–733"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Biological psychiatry"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Ekman",
+        "given": "P."
+      },
+      {
+        "family": "Friesen",
+        "given": "W.V."
+      }
+    ],
+    "date": [
+      "1971"
+    ],
+    "title": [
+      "Constants across cultures in the face and emotion"
+    ],
+    "volume": [
+      "17"
+    ],
+    "pages": [
+      "124"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Journal of personality and social psychology"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Gallese",
+        "given": "V."
+      },
+      {
+        "family": "Goldman",
+        "given": "A."
+      }
+    ],
+    "date": [
+      "1998"
+    ],
+    "title": [
+      "Mirror neurons and the simulation theory of mind-reading"
+    ],
+    "volume": [
+      "2"
+    ],
+    "pages": [
+      "493–501"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Trends in cognitive sciences"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Gowsikhaa",
+        "given": "D."
+      },
+      {
+        "family": "Abirami",
+        "given": "S."
+      },
+      {
+        "family": "Baskaran",
+        "given": "R."
+      }
+    ],
+    "date": [
+      "2014"
+    ],
+    "title": [
+      "Automated human behavior analysis from surveillance videos: a survey"
+    ],
+    "volume": [
+      "42"
+    ],
+    "pages": [
+      "747–765"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Artificial Intelligence Review"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Gross",
+        "given": "M.M."
+      },
+      {
+        "family": "Crane",
+        "given": "E.A."
+      },
+      {
+        "family": "Fredrickson",
+        "given": "B.L."
+      }
+    ],
+    "date": [
+      "2012"
+    ],
+    "title": [
+      "Effort-shape and kinematic assessment of bodily expression of emotion during gait"
+    ],
+    "volume": [
+      "31"
+    ],
+    "pages": [
+      "202–221"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Human movement science"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Gupta",
+        "given": "A."
+      },
+      {
+        "family": "D’Cunha",
+        "given": "A."
+      },
+      {
+        "family": "Awasthi",
+        "given": "K."
+      },
+      {
+        "family": "Balasubramanian",
+        "given": "V."
+      }
+    ],
+    "date": [
+      "2016"
+    ],
+    "title": [
+      "Daisee: Towards user engagement recognition in the wild"
+    ],
+    "note": [
+      "arXiv preprint arXiv:1609.01885"
+    ],
+    "arxiv": [
+      "1609.01885"
+    ],
+    "type": null
+  },
+  {
+    "author": [
+      {
+        "family": "Haidt",
+        "given": "J."
+      },
+      {
+        "family": "Keltner",
+        "given": "D."
+      }
+    ],
+    "date": [
+      "1999"
+    ],
+    "title": [
+      "Culture and facial expression: Open-ended methods find more expressions and a gradient of recognition"
+    ],
+    "volume": [
+      "13"
+    ],
+    "pages": [
+      "225–266"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Cognition & Emotion"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Han",
+        "given": "J.-H."
+      },
+      {
+        "family": "Kim",
+        "given": "J.-H."
+      }
+    ],
+    "date": [
+      "2010"
+    ],
+    "title": [
+      "Human-robot interaction by reading human intention based on mirrorneuron system"
+    ],
+    "container-title": [
+      "Robotics and Biomimetics (ROBIO), 2010 IEEE International Conference on (IEEE"
+    ],
+    "pages": [
+      "561–566"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Hayes",
+        "given": "A.F."
+      },
+      {
+        "family": "Krippendorff",
+        "given": "K."
+      }
+    ],
+    "date": [
+      "2007"
+    ],
+    "title": [
+      "Answering the call for a standard reliability measure for coding data"
+    ],
+    "volume": [
+      "1"
+    ],
+    "pages": [
+      "77–89"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Communication methods and measures"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Hufschmidt",
+        "given": "C."
+      },
+      {
+        "family": "Weege",
+        "given": "B."
+      },
+      {
+        "family": "Roder",
+        "given": "S."
+      },
+      {
+        "family": "Pisanski",
+        "given": "K."
+      },
+      {
+        "family": "Neave",
+        "given": "N."
+      },
+      {
+        "family": "Fink",
+        "given": "B."
+      }
+    ],
+    "date": [
+      "2015"
+    ],
+    "title": [
+      "Physical strength and gender identification from dance movements"
+    ],
+    "volume": [
+      "76"
+    ],
+    "pages": [
+      "13–17"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Personality and Individual Differences"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Iacoboni",
+        "given": "M."
+      },
+      {
+        "family": "Molnar-Szakacs",
+        "given": "I."
+      },
+      {
+        "family": "Gallese",
+        "given": "V."
+      },
+      {
+        "family": "Buccino",
+        "given": "G."
+      },
+      {
+        "family": "Mazziotta",
+        "given": "J.C."
+      }
+    ],
+    "date": [
+      "2005"
+    ],
+    "title": [
+      "Grasping the intentions of others with one’s own mirror neuron system"
+    ],
+    "volume": [
+      "3"
+    ],
+    "pages": [
+      "0529–0535"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "PLoS Biology"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Kawamura",
+        "given": "R."
+      },
+      {
+        "family": "Toyoda",
+        "given": "Y."
+      },
+      {
+        "family": "Niinuma",
+        "given": "K."
+      }
+    ],
+    "date": [
+      "2019"
+    ],
+    "title": [
+      "Engagement estimation based on synchrony of head movements: application to actual e-learning scenarios"
+    ],
+    "container-title": [
+      "Proceedings of the 24th International Conference on Intelligent User Interfaces: Companion (ACM"
+    ],
+    "pages": [
+      "25–26"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Kozlowski",
+        "given": "L.T."
+      },
+      {
+        "family": "Cutting",
+        "given": "J.E."
+      }
+    ],
+    "date": [
+      "1977"
+    ],
+    "title": [
+      "Recognizing the sex of a walker from a dynamic point-light display"
+    ],
+    "volume": [
+      "21"
+    ],
+    "pages": [
+      "575–580"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Perception & psychophysics"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Landis",
+        "given": "J.R."
+      },
+      {
+        "family": "Koch",
+        "given": "G.G."
+      }
+    ],
+    "date": [
+      "1977"
+    ],
+    "title": [
+      "The measurement of observer agreement for categorical data"
+    ],
+    "volume": [
+
+    ],
+    "pages": [
+      "159–174"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Biometrics"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Lemaignan",
+        "given": "S."
+      },
+      {
+        "family": "Edmunds",
+        "given": "C."
+      },
+      {
+        "family": "Senft",
+        "given": "E."
+      },
+      {
+        "family": "Belpaeme",
+        "given": "T."
+      }
+    ],
+    "date": [
+      "2017"
+    ],
+    "title": [
+      "The Free-play Sandbox: a Methodology for the Evaluation of Social Robotics and a Dataset of Social Interactions"
+    ],
+    "note": [
+      "arXiv preprint arXiv:1712.02421."
+    ],
+    "arxiv": [
+      "1712.02421"
+    ],
+    "type": null
+  },
+  {
+    "author": [
+      {
+        "family": "Manera",
+        "given": "V."
+      },
+      {
+        "family": "Becchio",
+        "given": "C."
+      },
+      {
+        "family": "Cavallo",
+        "given": "A."
+      },
+      {
+        "family": "Sartori",
+        "given": "L."
+      },
+      {
+        "family": "Castiello",
+        "given": "U."
+      }
+    ],
+    "date": [
+      "2011"
+    ],
+    "title": [
+      "Cooperation or competition? Discriminating between social intentions by observing prehensile movements"
+    ],
+    "volume": [
+      "211"
+    ],
+    "pages": [
+      "547–556"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Experimental Brain Research"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Manera",
+        "given": "V."
+      },
+      {
+        "family": "Schouten",
+        "given": "B."
+      },
+      {
+        "family": "Becchio",
+        "given": "C."
+      },
+      {
+        "family": "Bara",
+        "given": "B.G."
+      },
+      {
+        "family": "Verfaillie",
+        "given": "K."
+      }
+    ],
+    "date": [
+      "2010"
+    ],
+    "title": [
+      "Inferring intentions from biological motion: a stimulus set of point-light communicative interactions"
+    ],
+    "volume": [
+      "42"
+    ],
+    "pages": [
+      "168–178"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Behavior research methods"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Mather",
+        "given": "G."
+      },
+      {
+        "family": "Murdoch",
+        "given": "L."
+      }
+    ],
+    "date": [
+      "1994"
+    ],
+    "title": [
+      "Gender discrimination in biological motion displays based on dynamic cues"
+    ],
+    "volume": [
+      "258"
+    ],
+    "pages": [
+      "273–279"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Proc. R. Soc. Lond. B"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Ojala",
+        "given": "M."
+      },
+      {
+        "family": "Garriga",
+        "given": "G.C."
+      }
+    ],
+    "date": [
+      "2010"
+    ],
+    "title": [
+      "Permutation tests for studying classifier performance"
+    ],
+    "volume": [
+      "11"
+    ],
+    "pages": [
+      "1833–1863"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Journal of Machine Learning Research"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Okada",
+        "given": "S."
+      },
+      {
+        "family": "Aran",
+        "given": "O."
+      },
+      {
+        "family": "Gatica-Perez",
+        "given": "D."
+      }
+    ],
+    "date": [
+      "2015"
+    ],
+    "title": [
+      "Personality trait classification via co-occurrent multiparty multimodal event discovery"
+    ],
+    "container-title": [
+      "Proceedings of the 2015 ACM on International Conference on Multimodal Interaction (ACM"
+    ],
+    "pages": [
+      "15–22"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Okur",
+        "given": "E."
+      },
+      {
+        "family": "Alyuz",
+        "given": "N."
+      },
+      {
+        "family": "Aslan",
+        "given": "S."
+      },
+      {
+        "family": "Genc",
+        "given": "U."
+      },
+      {
+        "family": "Tanriover",
+        "given": "C."
+      },
+      {
+        "family": "Esme",
+        "given": "A.A."
+      }
+    ],
+    "date": [
+      "2017"
+    ],
+    "title": [
+      "Behavioral engagement detection of students in the wild"
+    ],
+    "container-title": [
+      "International Conference on Artificial Intelligence in Education (Springer"
+    ],
+    "pages": [
+      "250–261"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Pieters",
+        "given": "M."
+      },
+      {
+        "family": "Wiering",
+        "given": "M."
+      }
+    ],
+    "date": [
+      "2017"
+    ],
+    "title": [
+      "Comparison of machine learning techniques for multi-label genre classification"
+    ],
+    "container-title": [
+      "Benelux Conference on Artificial Intelligence (Springer"
+    ],
+    "pages": [
+      "131–144"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Pollick",
+        "given": "F.E."
+      },
+      {
+        "family": "Paterson",
+        "given": "H.M."
+      },
+      {
+        "family": "Bruderlin",
+        "given": "A."
+      },
+      {
+        "family": "Sanford",
+        "given": "A.J."
+      }
+    ],
+    "date": [
+      "2001"
+    ],
+    "title": [
+      "Perceiving affect from arm movement"
+    ],
+    "volume": [
+      "82"
+    ],
+    "pages": [
+      "51– 61"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Cognition"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Quesque",
+        "given": "F."
+      },
+      {
+        "family": "Lewkowicz",
+        "given": "D."
+      },
+      {
+        "family": "Delevoye-Turrell",
+        "given": "Y.N."
+      },
+      {
+        "family": "Coello",
+        "given": "Y."
+      }
+    ],
+    "date": [
+      "2013"
+    ],
+    "title": [
+      "Effects of social intention on movement kinematics in cooperative actions"
+    ],
+    "volume": [
+      "7"
+    ],
+    "pages": [
+      "14"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Frontiers in neurorobotics"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Salter",
+        "given": "D.A."
+      },
+      {
+        "family": "Tamrakar",
+        "given": "A."
+      },
+      {
+        "family": "Siddiquie",
+        "given": "B."
+      },
+      {
+        "family": "Amer",
+        "given": "M.R."
+      },
+      {
+        "family": "Divakaran",
+        "given": "A."
+      },
+      {
+        "family": "Lande",
+        "given": "B."
+      },
+      {
+        "others": true
+      }
+    ],
+    "date": [
+      "2015"
+    ],
+    "title": [
+      "The tower game dataset: A multimodal dataset for analyzing social interaction predicates"
+    ],
+    "container-title": [
+      "2015 International Conference on Affective Computing and Intelligent Interaction (ACII) (IEEE"
+    ],
+    "pages": [
+      "656–662"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Sanchez-Cortes",
+        "given": "D."
+      },
+      {
+        "family": "Aran",
+        "given": "O."
+      },
+      {
+        "family": "Mast",
+        "given": "M.S."
+      },
+      {
+        "family": "Gatica-Perez",
+        "given": "D."
+      }
+    ],
+    "date": [
+      "2011"
+    ],
+    "title": [
+      "A nonverbal behavior approach to identify emergent leaders in small groups"
+    ],
+    "volume": [
+      "14"
+    ],
+    "pages": [
+      "816–832"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "IEEE Transactions on Multimedia"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Sanghvi",
+        "given": "J."
+      },
+      {
+        "family": "Castellano",
+        "given": "G."
+      },
+      {
+        "family": "Leite",
+        "given": "I."
+      },
+      {
+        "family": "Pereira",
+        "given": "A."
+      },
+      {
+        "family": "McOwan",
+        "given": "P.W."
+      },
+      {
+        "family": "Paiva",
+        "given": "A."
+      }
+    ],
+    "date": [
+      "2011"
+    ],
+    "title": [
+      "Automatic analysis of affective postures and body motion to detect engagement with a game companion"
+    ],
+    "container-title": [
+      "Proceedings of the 6th international conference on Human-robot interaction (ACM"
+    ],
+    "pages": [
+      "305–312"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Schrempf",
+        "given": "O.C."
+      },
+      {
+        "family": "Hanebeck",
+        "given": "U.D."
+      }
+    ],
+    "date": [
+      "2005"
+    ],
+    "title": [
+      "A generic model for estimating user intentions in human-robot cooperation"
+    ],
+    "container-title": [
+      "ICINCO"
+    ],
+    "pages": [
+      "251–256"
+    ],
+    "type": "chapter"
+  },
+  {
+    "author": [
+      {
+        "family": "Shaker",
+        "given": "N."
+      },
+      {
+        "family": "Shaker",
+        "given": "M."
+      }
+    ],
+    "date": [
+      "2014"
+    ],
+    "title": [
+      "Towards understanding the nonverbal signatures of engagement in super mario bros"
+    ],
+    "container-title": [
+      "International Conference on User Modeling, Adaptation, and Personalization (Springer"
+    ],
+    "pages": [
+      "423–434"
+    ],
+    "type": "paper-conference"
+  },
+  {
+    "author": [
+      {
+        "family": "Sorower",
+        "given": "M.S."
+      }
+    ],
+    "date": [
+      "2010"
+    ],
+    "title": [
+      "A literature survey on algorithms for multi-label learning"
+    ],
+    "publisher": [
+      "Oregon State University"
+    ],
+    "location": [
+      "Corvallis 18"
+    ],
+    "type": "book"
+  },
+  {
+    "author": [
+      {
+        "family": "Tracy",
+        "given": "J.L."
+      },
+      {
+        "family": "Robins",
+        "given": "R.W."
+      }
+    ],
+    "date": [
+      "2008"
+    ],
+    "title": [
+      "The nonverbal expression of pride: evidence for cross-cultural recognition"
+    ],
+    "volume": [
+      "94"
+    ],
+    "pages": [
+      "516"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Journal of personality and social psychology"
+    ]
+  },
+  {
+    "author": [
+      {
+        "family": "Vernon",
+        "given": "D."
+      },
+      {
+        "family": "Thill",
+        "given": "S."
+      },
+      {
+        "family": "Ziemke",
+        "given": "T."
+      }
+    ],
+    "date": [
+      "2016"
+    ],
+    "title": [
+      "The role of intention in cognitive robotics"
+    ],
+    "container-title": [
+      "Toward Robotic Socially Believable Behaving Systems-Volume I"
+    ],
+    "pages": [
+      "15–27"
+    ],
+    "type": "chapter"
+  },
+  {
+    "author": [
+      {
+        "family": "Walker-Andrews",
+        "given": "A.S."
+      }
+    ],
+    "date": [
+      "1997"
+    ],
+    "title": [
+      "Infants’ perception of expressive behaviors: differentiation of multimodal information"
+    ],
+    "volume": [
+      "121"
+    ],
+    "pages": [
+      "437"
+    ],
+    "type": "article-journal",
+    "container-title": [
+      "Psychological bulletin"
+    ]
+  }
+]
