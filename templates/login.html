@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link href="/static/styles.css" rel="stylesheet"> 
+
+        <!-- bootstrap -->
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+        <link href="/static/css/flatly.bootstrap.min.css" rel="stylesheet"> 
+        
+    </head>
+
+    <body>
+        <div class="container">
+
+            {% if msg %}
+            <div class="alert alert-dismissable alert-danger">
+              <button type="button" class="close" data-dismiss="alert" data-_extension-text-contrast="">×</button>
+              <strong>{{ msg }}</strong>
+            </div>
+            {% endif %}
+
+            <form method="post">
+                <div class="form-group">
+                    {% if is_student %}
+                    <label for="exampleInputPassword1">Student id:</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name=studentid placeholder="student id">
+                    {% else %}
+                    <label for="exampleInputPassword1">Supervisor password:</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name=password placeholder="Password">
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+    </body>
+</html>
+

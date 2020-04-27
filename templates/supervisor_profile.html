@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link href="/static/styles.css" rel="stylesheet"> 
+
+        <!-- bootstrap -->
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+        <link href="/static/css/flatly.bootstrap.min.css" rel="stylesheet"> 
+
+    </head>
+
+    <body>
+        <div class="container">
+
+            {% if user %}
+            <div class="page-header">
+                <h1>Hi, {{ user["firstname"] }}!<a href="/logout" class="btn btn-danger btn-sm">Log out</a></h1>
+            </div>
+
+            <p>
+            <label class="col-form-label col-form-label-lg" for="email">My contact email</label>
+            <input type="text" class="form-control" placeholder="Type your prefered email to be contacted by students" value="{{ user["email"] if user["email"] is not none else "" }}" id="email" data-_extension-text-contrast="bg">
+
+            </p>
+            <p>
+            <span class="col-form-label col-form-label-lg" >My keywords</span>
+
+            <ul class="list-group list-group-horizontal-sm" id="keywords">
+                {% for k in supervisor_keywords %}
+                <li class="list-group-item">{{ k }}</li>
+                {% endfor %}
+            </ul>
+            <input class="form-control keywordAutoComplete" placeholder="Start typing to add a keyword..." type="text" id="keyword_input" data-url="/keywords" autocomplete="off">
+
+            </p>
+
+            <span class="col-form-label col-form-label-lg" >My profile</span>
+            (visible to students - click to edit)
+            <div class="card text-white bg-secondary mb-3">
+                <h4 class="card-header">{{ user["firstname"] + " " + user["surname"] }}</h4>
+                <div id="profile_container" class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+
+                            <form action="profile_picture" method=post enctype=multipart/form-data id="profile_picture_form">
+                                <div class="input-group mb-3">
+                                    {% if has_picture %}
+                                    <img src='/static/profiles/{{ user["username"] }}.jpg?{{ range(10000, 99999) | random }}' alt='Portrait of {{ user["firstname"] }}'  />
+                                    {% else %}
+                                    <img src='/static/default_profile.jpg' alt='Default profile picture' />
+                                    {% endif %}
+                                    <input type="file" style="visibility:hidden;" name="avatar" id="avatar_input" accept="image/jpeg">
+                                    <label class="btn btn-primary" for="avatar_input" aria-describedby="Profile picture">Change profile picture</label>
+                                    <!--
+                                        <div class="input-group-append">
+                                        <button class="btn input-group-text" type=submit>Upload</button>
+                                        </div>-->
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-10">
+                            <div id="profile"></div>
+
+                            {% if user["profile"] %}
+                            <textarea id="profile_edit"  rows="10" cols="90" style="display:none;">{{ user["profile"] }}</textarea>
+                            {% else %}
+                            <textarea id="profile_edit"  rows="10" cols="90" style="display:none;">Click here to edit your profile. Describe yourself and your main research topics. You can **use** the _markdown_ *syntax* to enrich the text:
+                                - item 1
+                                - item 2
+
+                                Click on the `Done` button to save.</textarea>
+                            {% endif %}
+                            <button id="profile_done" class="btn btn-primary" style="display:none;" type="button">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <h2>My MSc dissertation subjects</h2>
+
+            <form class="form-inline">
+                In any case, I would like to supervise <strong>at most <input class="form-control mb-2 mr-sm-2 mb-sm-0" type="number" value="{{ user['max_students']}}" id="max_students" min=1 max=8> students</strong> (note that you can offer more project ideas if you wish).
+            </form>
+
+            <div class="row">
+
+                {% for s in subjects %}
+                <div class="col-4">
+                    <div class="card">
+                        <h4 class="card-header">{{ s["title"] }}</h4>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Supervised by: {{ s["supervisor"] }} {{ s["cosupervisor"] }}</h6>
+                            <p class="card-text">{{ s["desc"] }}</p>
+                            {% if s["is_cocreated"] %}
+                            <span class="small"><strong>Co-created</strong> with {{ s["assigned_student"] }}</span>
+                            {% endif %}
+                        </div>
+                        <form action="delete-subject" method=post>
+                            <input type="hidden" name="subjectid" value="{{ s['id'] }}">
+                            <button type="submit" class="btn btn-danger btn-xs">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {% if user["can_be_main_supervisor"] %}
+            <p>
+            <div class="new-subject jumbotron">
+                <h4>Add a new subject:</h4>
+                <form action="new-subject"  method="post">
+                    <fieldset>
+                        <div class="form-group">
+                            <input type="text" name="title" placeholder="Title" />
+                        </div>
+
+                        <div class="form-group">
+                            <textarea rows="4" cols="80" name="desc" placeholder="Description (3-4 lines max)"></textarea><br/>
+
+                        </div>
+                        <div class="form-group">
+                            If the project is <strong>co-created</strong>, name of the student: <select class="custom-select" name="assigned_student">
+                                <option value="" disabled selected>select the student</option>
+                                {% for s in students %}
+                                <option value={{ s["student_id"] }}>{{ s["firstname"] + " " + s["surname"] + " (" + s["student_id"] + ", " + s["programme"] + ")" }}</option>
+                                {% endfor %}
+                            </select><br/>
+
+                            If the project is <strong>co-supervised</strong>, the co-supervisor is <select class="custom-select" name="cosupervisor">
+                                <option value="" disabled selected>select the co-supervisor</option>
+                                {% for s in supervisors %}
+                                <option value={{ s["username"] }}>{{ s["firstname"] + " " + s["surname"] }}</option>
+                                {% endfor %}
+                            </select><br/>
+
+                        </div>
+                        <div class="form-group">
+
+                            Keywords:
+                            <ul class="list-group list-group-horizontal-sm" id="subject_keywords">
+                                {% for k in supervisor_keywords %}
+                                <li class="list-group-item">{{ k }}</li>
+                                {% endfor %}
+                            </ul>
+                            <input type="hidden" id="subject_keywords_list" name="keywords" value="">
+                            <input class="form-control keywordAutoComplete" placeholder="Start typing to add a keyword..." type="text" id="subject_keyword_input" data-url="/keywords" autocomplete="off">
+
+                        </div>
+
+                        <input class="btn btn-primary btn-lg" type="submit" value="Add subject" />
+                    </fieldset>
+                </form>
+            </div>
+            </p>
+            {% else %}
+            (to create a new MSc project proposal, contact a permanent member of staff who would be willing to be the main supervisor)
+            {% endif %}
+
+            {% else %}
+            <h1 class="page-header">
+                <div class="form-row">
+                    <label for="supervisor_list" class="col-sm-1">Hi,</label> 
+                    {% if not username %}
+                    <select class="custom-select custom-select-lg col-sm-11" onchange='this.options[this.selectedIndex].value && (window.location = "/supervisor/" + this.options[this.selectedIndex].value);' id="supervisor_list">
+                        <option value="" disabled selected>select your name</option>
+                        <option value="not-listed">I'M NOT YET IN THE LIST!</option>
+                        {% for s in supervisors %}
+                        <option value={{ s["username"] }}>{{ s["firstname"] + " " + s["surname"] }}</option>
+                        {% endfor %}
+                    </select>
+                    {% else %}
+                    <input class="col-sm-4" type="text" name="firstname" id="firstname" placeholder="Firstname" />
+                    <input class="col-sm-4" type="text" name="surname" id="surname" placeholder="Surname" />
+                    <input class="btn btn-primary offset-md-1  col-sm-1" type="submit" id="new_supervisor_btn" value="Continue" />
+
+                    {% endif %}
+                </div>
+            </h1>
+
+            {% endif %}
+
+
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.2.2/dist/latest/bootstrap-autocomplete.min.js"></script> 
+
+
+        <script>
+
+            var md_converter = new showdown.Converter();
+
+window.onload = function(e) {
+    $('.keywordAutoComplete').autoComplete({
+        "minLength":2});
+    $("#profile").html(md_converter.makeHtml($("#profile_edit").val()));
+}
+
+$("#profile").click(function(e) {
+    $("#profile").hide();
+    $("#profile_edit").show();
+    $("#profile_done").show();
+});
+
+
+$("#profile_done").click(function() {
+
+    $("#profile").html(md_converter.makeHtml($("#profile_edit").val()));
+    $("#profile_edit").hide();
+    $("#profile_done").hide();
+    $("#profile").show();
+
+    $.post("profile", {"profile":$("#profile_edit").val()});
+});
+
+
+$("#email").focus(function() {
+    $("#email").removeClass("is-valid");
+});
+
+$("#email").change(function() {
+
+    $.post("update", JSON.stringify({"email":$("#email").val()}),function(e){
+        $("#email").addClass("is-valid");
+    });
+
+});
+
+$("#max_students").change(function() {
+    $.post("update", JSON.stringify({"max_students":$("#max_students").val()}));
+});
+
+$("#keyword_input").on("autocomplete.select", function(e, item) {
+
+    $("#keyword_input").val("");
+
+    var kw = $("#keywords li").map(function(){return $(this).text();}).get()
+    if (kw.includes(item)) return;
+
+    $("#keywords").append($('<li class="list-group-item">').append(item));
+    $("#subject_keywords").append($('<li class="list-group-item">').append(item));
+
+    $.post("keywords", JSON.stringify({"keywords":$("#keywords li").map(function(){return $(this).text();}).get()}));
+
+});
+
+$("#keyword_input").on("autocomplete.freevalue", function(e, item) {
+
+    $("#keyword_input").val("");
+
+    var kw = $("#keywords li").map(function(){return $(this).text();}).get()
+    if (kw.includes(item)) return;
+
+    $("#keywords").append($('<li class="list-group-item">').append(item));
+    $("#subject_keywords").append($('<li class="list-group-item">').append(item));
+
+    $.post("keywords", JSON.stringify({"keywords":$("#keywords li").map(function(){return $(this).text();}).get()}), null, "json");
+
+});
+
+$("#subject_keyword_input").on("autocomplete.select", function(e, item) {
+
+    $("#subject_keyword_input").val("");
+
+    var kw = $("#subject_keywords li").map(function(){return $(this).text();}).get();
+    if (kw.includes(item)) return;
+
+    $("#subject_keywords").append($('<li class="list-group-item">').append(item));
+
+    $("#subject_keywords_list").val(JSON.stringify($("#subject_keywords li").map(function(){return $(this).text();}).get()));
+
+});
+
+$("#subject_keyword_input").on("autocomplete.freevalue", function(e, item) {
+
+    $("#subject_keyword_input").val("");
+
+    var kw = $("#subject_keywords li").map(function(){return $(this).text();}).get();
+    if (kw.includes(item)) return;
+
+    $("#subject_keywords").append($('<li class="list-group-item">').append(item));
+
+    $("#subject_keywords_list").val(JSON.stringify($("#subject_keywords li").map(function(){return $(this).text();}).get()));
+
+});
+
+$("#subject_keyword_input").on('keydown', function ( event ) {
+    if (event.keyCode === 13) {
+        // Do not submit form on pressing enter
+        return false;
+    }
+});
+
+$("#new_supervisor_btn").click(function() {
+    window.location = "/supervisor/create/" + $("#firstname").val() + "/" + $("#surname").val();
+});
+
+$("#avatar_input").change(function() {
+    $("#profile_picture_form").submit();
+});
+
+        </script>
+    </body>
+</html>

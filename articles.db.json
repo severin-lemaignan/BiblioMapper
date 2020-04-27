@@ -1,0 +1,33 @@
+[
+    {
+        "pdf":"publis/senft2019teaching.pdf",
+        "type":"journal",
+        "title":"Teaching robots social autonomy from in situ human guidance",
+        "keywords":["Artificial Intelligence", "Machine Learning", "Education", "Social Robotics"],
+        "venue":"Science Robotics",
+        "year":2019,
+        "doi": "10.1126/scirobotics.aat1186",
+        "authors":["Senft, E.", "id:0000-0002-3391-8876", "Baxter, P.", "Bartlett, M.", "Belpaeme, T."]
+    },
+    {
+        "id":"wallbridge2019generating",
+        "pdf":"publis/wallbridge2019generating.pdf",
+        "type":"journal",
+        "doi":"10.3389/frobt.2019.00067",
+        "title":"Generating Spatial Referring Expressions in a Social Robot: Dynamic vs Non-Ambiguous",
+        "keywords":["Language", "Social Robotics", "Social Cognition", "Machine Learning"],
+        "venue":"Frontiers in AI and Robotics",
+        "year":2019,
+        "authors":["Wallbridge, C.", "Lemaignan, S.", "Senft, E.", "Belpaeme, T."]
+    },
+    {
+        "id":"sallami2019simulation",
+        "pdf":"publis/sallami2019simulation.pdf",
+        "type":"conference",
+        "title":"Simulation-based physics reasoning for consistent scene estimation in an HRI context",
+        "keywords":["Technical Paper", "Simulation"],
+        "venue":"IROS",
+        "year":2019,
+        "authors":["Sallami, Y.", "Lemaignan, S.", "Clodic, A.", "Alami, R."]
+    }
+]
