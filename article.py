@@ -2,10 +2,13 @@
 import hashlib
 from pathlib import Path
 import subprocess
+import os
 
 import requests
 import json
 import time
+
+from extract_metadata import extract_metadata
 
 CROSSREF_URL = "https://api.crossref.org/works?query.bibliographic={title}&query.author={author}&rows=1"
 CROSSREF_HEADERS = {
@@ -77,8 +80,27 @@ class Article():
 
 
     @staticmethod
+    def crossref(title, first_author):
+        print("Querying crossref about %s by %s et al..." % (title, first_author))
+        response = requests.get(CROSSREF_URL.format(title=title, author = first_author),
+                                headers=CROSSREF_HEADERS)
+        res = response.json()["message"]["items"]
+        return res
+
+    @staticmethod
     def create_from_pdf(tmp_path):
-        pass
+        sha = sha256sum(tmp_path)
+        (CACHE_PATH / sha).mkdir(exist_ok=True)
+        pdf_file_name = CACHE_PATH / sha / (sha + ".pdf")
+        os.rename(tmp_path, pdf_file_name)
+
+        metadata = extract_metadata(CACHE_PATH/sha)
+
+        res = Article.crossref(metadata["title"],
+                               metadata["authors"][0]["name"])
+
+        for ref in res:
+            print(ref)
 
     def get_article_path(self, pdf_file_path):
         """Return the path where the article's details are cached.
@@ -126,9 +148,7 @@ class Article():
 
             for idx, ref in enumerate(rawrefs):
                 print("Processing citation %d/%d..." % (idx + 1, len(rawrefs)))
-                response = requests.get(CROSSREF_URL.format(title=ref["title"][0], author = ref["author"][0]["family"]),
-                                        headers=CROSSREF_HEADERS)
-                res = response.json()["message"]["items"]
+                res = Article.crossref(ref["title"][0], ref["author"][0]["family"])
                 if res:
                     references.append(
                             {

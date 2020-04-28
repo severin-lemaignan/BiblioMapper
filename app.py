@@ -46,7 +46,7 @@ def article(id=None):
 @app.route('/article/new', methods=["POST"])
 def add_new_article_from_pdf():
 
-    file = request.files['pdf']
+    file = request.files['file']
     if file:
         tmp_file = tempfile.NamedTemporaryFile(delete=False)
 
