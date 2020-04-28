@@ -14,10 +14,9 @@ from article import Article, Author, get_article_network
 
 app = Flask(__name__)
 
-ROOT = Path(".")
-
-ARTICLES_ROOT= ROOT / "test" / "articles"
-AUTHORS_ROOT= ROOT / "test" / "authors"
+CACHE_ROOT = Path("./cache")
+ARTICLES_ROOT= CACHE_ROOT / "articles"
+AUTHORS_ROOT= CACHE_ROOT / "authors"
 
 PROFILE_PICTURE_FOLDER="static/profiles/"
 

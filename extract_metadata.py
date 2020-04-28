@@ -6,15 +6,15 @@ import xml.etree.ElementTree as ET
 
 def extract_metadata(article_dir):
 
-    id = article_dir.parts[-1]
-
-    jats_filepath = article_dir / (id + ".cermxml")
+    jats_filepath = article_dir / ("article.cermxml")
 
     if not jats_filepath.exists():
         print("Running CERMINeR to extract PDF metadata...")
         cmd_line = f"java -cp cermine-impl-1.13-jar-with-dependencies.jar pl.edu.icm.cermine.ContentExtractor -path {article_dir}"
         try:
             result = subprocess.run(cmd_line,shell=True, capture_output=True, check=True)
+            if "Invalid PDF file" in result.stderr.decode():
+                raise RuntimeError("The submitted PDF is invalid. Could not extract the metadata. Try to provide directly the name/DOI of the article") 
         except subprocess.CalledProcessError as cpe:
             print(cpe.stderr)
             raise cpe

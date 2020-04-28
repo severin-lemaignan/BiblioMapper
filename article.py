@@ -14,7 +14,11 @@ CROSSREF_URL = "https://api.crossref.org/works?query.bibliographic={title}&query
 CROSSREF_HEADERS = {
         'User-Agent': 'OntoBiblio 0.1 (mailto:severin@guakamole.org)'
 }
-CACHE_PATH= Path("./cache")
+CACHE_ROOT = Path("./cache")
+
+ARTICLES_ROOT= CACHE_ROOT / "articles"
+AUTHORS_ROOT= CACHE_ROOT / "authors"
+
 
 from enum import Enum
 class LinkType(str,Enum):
@@ -66,41 +70,93 @@ class Article():
 
         self.id = path.parts[-1]
 
+        self.metadata_path = path / "metadata.json"
+
+        if not self.metadata_path.exists():
+            print(f"Article meta-data inexistant for {path}! Trying to recreate the article from the PDF...")
+            Article.create_from_pdf(path / "article.pdf")
+
         with open(path / "metadata.json") as fp:
             metadata = json.load(fp)
 
         self.metadata = metadata
+        self.type = metadata["type"]
         self.title = metadata["title"]
         self.year = metadata["year"]
-        self.venue = metadata["venue"]
+        self.container = metadata["container-title"]
         self.authors = metadata["authors"]
-        self.keywords = metadata["keywords"]
+        self.keywords = metadata.get("keywords",[])
 
         self.doi = metadata.get("doi", None)
 
+    def __str__(self):
+        return "{title}, by {authors}".format(title=self.title,
+                                              authors = ", ".join(self.authors))
+
+    def __repr__(self):
+        return self.id
 
     @staticmethod
-    def crossref(title, first_author):
+    def crossref(title, first_author, save_as=None):
         print("Querying crossref about %s by %s et al..." % (title, first_author))
         response = requests.get(CROSSREF_URL.format(title=title, author = first_author),
                                 headers=CROSSREF_HEADERS)
         res = response.json()["message"]["items"]
-        return res
+
+        if not res:
+            return None
+
+        metadata = {
+            "title": res[0]["title"][0],
+            "URL": res[0]["URL"],
+            "DOI": res[0]["DOI"],
+            "authors": [a["family"] for a in res[0]["author"]],
+            "year": res[0]["created"]["date-parts"][0][0],
+            "container-title": res[0]["container-title"][0],
+            "type": res[0]["type"]
+        }
+        #TODO: use ORCID when available; use nested references if possible
+
+        if save_as is not None:
+            with open(save_as, "w") as fp:
+                json.dump(metadata, fp)
+
+        return metadata
 
     @staticmethod
     def create_from_pdf(tmp_path):
         sha = sha256sum(tmp_path)
-        (CACHE_PATH / sha).mkdir(exist_ok=True)
-        pdf_file_name = CACHE_PATH / sha / (sha + ".pdf")
-        os.rename(tmp_path, pdf_file_name)
 
-        metadata = extract_metadata(CACHE_PATH/sha)
+        if not (ARTICLES_ROOT/sha).exists():
+            (ARTICLES_ROOT / sha).mkdir()
+            pdf_file_name = ARTICLES_ROOT / sha / "article.pdf"
+            os.rename(tmp_path, pdf_file_name)
 
-        res = Article.crossref(metadata["title"],
-                               metadata["authors"][0]["name"])
+        if not (ARTICLES_ROOT / sha / "metadata.json").exists():
 
-        for ref in res:
-            print(ref)
+            rawmetadata = extract_metadata(ARTICLES_ROOT/sha)
+
+            metadata = Article.crossref(rawmetadata["title"],
+                                   rawmetadata["authors"][0]["name"],
+                                   save_as=ARTICLES_ROOT/sha/"metadata.json")
+
+            if not metadata:
+                raise KeyError("No Crossref DOI found for this paper! Maybe the title was incorrectly parsed. Try to input the title or DOI directly.")
+
+        else:
+            print("Article already known! Loading existing metadata")
+            with open(ARTICLES_ROOT / sha / "metadata.json") as fp:
+                metadata = json.load(fp)
+
+
+        new_path = ARTICLES_ROOT / metadata["DOI"].replace("/","_")
+
+        ## We have a DOI -> rename the paper's directory, and link the SHA folder to the new directory
+        if not new_path.exists():
+            os.rename(ARTICLES_ROOT / sha, new_path)
+            os.symlink(new_path.resolve(), (ARTICLES_ROOT / sha).resolve())
+
+        return Article(new_path)
 
     def get_article_path(self, pdf_file_path):
         """Return the path where the article's details are cached.
@@ -108,7 +164,7 @@ class Article():
         """
 
         sha = sha256sum(pdf_file_path)
-        article_path = CACHE_PATH / sha
+        article_path = ARTICLES_ROOT / sha
         article_path.mkdir(parents=True, exist_ok=True)
 
         return article_path
@@ -150,15 +206,7 @@ class Article():
                 print("Processing citation %d/%d..." % (idx + 1, len(rawrefs)))
                 res = Article.crossref(ref["title"][0], ref["author"][0]["family"])
                 if res:
-                    references.append(
-                            {
-                                "title": res[0]["title"][0],
-                                "URL": res[0]["URL"],
-                                "DOI": res[0]["DOI"],
-                                "author": [a["family"] for a in res[0]["author"]],
-                                "year": res[0]["created"]["date-parts"][0][0],
-                            })
-                            #TODO: use ORCID when available; use nested references if possible
+                    references.append(res)
                 else:
                     print('Could not automatically retrieve reference {idx}'
                         ': "{title}" by {author} et al.: no DOI? wrong '
