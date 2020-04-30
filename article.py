@@ -36,17 +36,6 @@ def sha256sum(filename):
             h.update(mv[:n])
     return h.hexdigest()
 
-def get_article_network(article, articles, authors):
-
-    links = {}
-    for a in article.authors:
-        if a.startswith("id:"): # we know about this author!
-            links[a[3:]] =  LinkType.AUTHOR
-
-    return links
-
-
-
 class Author():
 
     def __init__(self, path):
@@ -63,6 +52,31 @@ class Author():
 
         self.orcid = metadata.get("orcid", None)
 
+class ArticleDB():
+
+    def __init__(self, articles_root):
+
+        self.articles = {p.parts[-1]: Article(p) for p in articles_root.iterdir() if not p.is_symlink()}
+
+    def __getitem__(self, val):
+        return self.articles[val]
+
+    def __contains__(self, val):
+        return val in self.articles
+
+    def get_network(self, article_id, authors):
+
+        article = self.articles[article_id]
+
+        links = {}
+        for a in article.authors:
+            #if a.startswith("id:"): # we know about this author!
+            #    links[a[3:]] =  LinkType.AUTHOR
+            links[a] =  LinkType.AUTHOR
+
+        return links
+
+
 
 class Article():
 
@@ -70,11 +84,18 @@ class Article():
 
         self.id = path.parts[-1]
 
+        self.path = path
         self.metadata_path = path / "metadata.json"
+        self.pdf_path = path / "article.pdf"
+        self.has_pdf = self.pdf_path.exists()
 
         if not self.metadata_path.exists():
-            print(f"Article meta-data inexistant for {path}! Trying to recreate the article from the PDF...")
-            Article.create_from_pdf(path / "article.pdf")
+
+            if self.has_pdf:
+                print(f"Article meta-data inexistant for {path}! Trying to recreate the article from the PDF...")
+                Article.create_from_pdf(self.pdf_path)
+            else:
+                raise RuntimeError("No PDF or metadata found in %s. You need to fix this article folder." % path)
 
         with open(path / "metadata.json") as fp:
             metadata = json.load(fp)
@@ -88,6 +109,9 @@ class Article():
         self.keywords = metadata.get("keywords",[])
 
         self.doi = metadata.get("doi", None)
+
+        # TODO: make that async!
+        self.generate_thumbnail()
 
     def __str__(self):
         return "{title}, by {authors}".format(title=self.title,
@@ -134,7 +158,7 @@ class Article():
 
         if not (ARTICLES_ROOT / sha / "metadata.json").exists():
 
-            rawmetadata = extract_metadata(ARTICLES_ROOT/sha)
+            rawmetadata = extract_metadata(ARTICLES_ROOT/sha / "article.pdf")
 
             metadata = Article.crossref(rawmetadata["title"],
                                    rawmetadata["authors"][0]["name"],
@@ -234,5 +258,26 @@ class Article():
         else:
             with references_path.open() as refs_fp:
                 return json.load(refs_fp)
+
+    def generate_thumbnail(self):
+        """Generates a thumbnail of the PDF file (if required and PDF available),
+        and sets self.thumbnail_path to the corresponding path.
+
+        Sets self.thumbnail_path to None if no thumbnail available.
+        """
+
+        thumbnail_path = path / "thumbnail.jpg"
+
+        if not thumbnail_path.exists():
+
+            if self.has_pdf:
+                cmd_line = f"convert -thumbnail 200x200 -density 300 -background white -alpha remove {file_path}[0] {thumbnail}"
+                subprocess.run(cmd_line,shell=True)
+                self.thumbnail_path = thumbnail_path
+            else:
+                self.thumbnail_path = None
+        else:
+            self.thumbnail_path = thumbnail_path
+
 
 

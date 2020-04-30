@@ -1,3 +1,22 @@
+Requirements
+------------
+
+- `pypdf2`
+- `cerminer`
+- `pdftotxt`
+- `imagemagik` (`convert`)
+- `flask`
+- `anystyle` (for references parsing)
+- Python bindings for `crossref`
+
+
+Starting the app
+----------------
+
+
+
+
+
 Requires Flask (`sudo apt install python3-flask`).
 
 To start the server:

@@ -10,7 +10,7 @@ from flask import Flask, escape, url_for,render_template, g, request, redirect, 
 from werkzeug import secure_filename
 
 
-from article import Article, Author, get_article_network
+from article import ArticleDB, Article, Author
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ PICTURE_EXTENSIONS = ["png","jpg","jpeg"]
 ## See details on how to manage user sessions in the MSC website
 app.secret_key = b'\xfbC&\xd4\xde\x9ej\xcd\\\x87H\n+WhV'
 
-ARTICLES = {p.parts[-1]: Article(p) for p in ARTICLES_ROOT.iterdir()}
+ARTICLES = ArticleDB(ARTICLES_ROOT)
 
 AUTHORS = {a.parts[-1]: Author(a) for a in AUTHORS_ROOT.iterdir()}
 
@@ -40,6 +40,12 @@ def article(id=None):
 
     if id in ARTICLES:
         return jsonify(get_article_network(ARTICLES[id]))
+
+@app.route('/article/<id>/network')
+def article_network(id):
+
+    if id in ARTICLES:
+        return jsonify(ARTICLES.get_network(id))
 
 
 @app.route('/article/new', methods=["POST"])

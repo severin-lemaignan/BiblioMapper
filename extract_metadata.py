@@ -1,11 +1,24 @@
 import sys
 import subprocess
 
+import pypdf2
+
 import xml.etree.ElementTree as ET
 
 
-def extract_metadata(article_dir):
+def extract_metadata(article_path):
 
+    # Are the title + authors set in the metadata?
+    # if so, it is quick and easy
+    pdfReader = PyPDF2.PdfFileReader(article_path)
+    a = pdfReader.documentInfo["/Author"]
+    t = pdfReader.documentInfo["/Title"]
+    if a and t:
+        return {"title": t, "authors": a}
+
+    # otherwise, we need to mine the PDF with CERMINeR:
+
+    article_dir = article_path.parent
     jats_filepath = article_dir / ("article.cermxml")
 
     if not jats_filepath.exists():
