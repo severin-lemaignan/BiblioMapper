@@ -1,3 +1,13 @@
+import logging
+from rich.logging import RichHandler
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="NOTSET", format=FORMAT, datefmt="[%X] ", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
+
 from pathlib import Path
 import os
 import json
@@ -55,14 +65,17 @@ def add_new_article_from_pdf():
     if file:
         tmp_file = tempfile.NamedTemporaryFile(delete=False)
 
-        print("Saving PDF as temporary file %s, before processing..." % tmp_file.name)
+        log.info("Saving PDF as temporary file %s, before processing..." % tmp_file.name)
         file.save(tmp_file)
 
         article = Article.create_from_pdf(tmp_file.name)
-    else:
-        print("No file received!")
 
-    return redirect(url_for('hello'))
+        return repr(article)
+
+    else:
+        log.error("No file received!")
+        return ""
+
 
 
 

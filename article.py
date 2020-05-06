@@ -1,3 +1,15 @@
+import logging
+from rich.logging import RichHandler
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="NOTSET", format=FORMAT, datefmt="[%X] ", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
+
+from rich.traceback import install
+install()
 
 import hashlib
 from pathlib import Path
@@ -92,7 +104,7 @@ class Article():
         if not self.metadata_path.exists():
 
             if self.has_pdf:
-                print(f"Article meta-data inexistant for {path}! Trying to recreate the article from the PDF...")
+                log.warn(f"Article meta-data inexistant for {path}! Trying to recreate the article from the PDF...")
                 Article.create_from_pdf(self.pdf_path)
             else:
                 raise RuntimeError("No PDF or metadata found in %s. You need to fix this article folder." % path)
@@ -122,7 +134,7 @@ class Article():
 
     @staticmethod
     def crossref(title, first_author, save_as=None):
-        print("Querying crossref about %s by %s et al..." % (title, first_author))
+        log.info("Querying crossref about %s by %s et al..." % (title, first_author))
         response = requests.get(CROSSREF_URL.format(title=title, author = first_author),
                                 headers=CROSSREF_HEADERS)
         res = response.json()["message"]["items"]
@@ -168,7 +180,7 @@ class Article():
                 raise KeyError("No Crossref DOI found for this paper! Maybe the title was incorrectly parsed. Try to input the title or DOI directly.")
 
         else:
-            print("Article already known! Loading existing metadata")
+            log.info("Article already known! Loading existing metadata")
             with open(ARTICLES_ROOT / sha / "metadata.json") as fp:
                 metadata = json.load(fp)
 
@@ -210,7 +222,7 @@ class Article():
         # no reference extracted yet? 
         # run anystyle (and cache the result)
         if not raw_references_path.exists():
-            print("Parsing the PDF for citations...")
+            log.info("Parsing the PDF for citations...")
             cmd_line = f"anystyle -f json find --no-layout {pdf_file_path} > {raw_references_path}"
             subprocess.run(cmd_line,shell=True)
 
@@ -219,7 +231,7 @@ class Article():
         # cache the result
         if not references_path.exists():
 
-            print("Fetching (and caching) DOIs... this may take a little while...")
+            log.info("Fetching (and caching) DOIs... this may take a little while...")
 
             with raw_references_path.open() as raw_refs_fp:
                 rawrefs = json.load(raw_refs_fp)
@@ -227,12 +239,12 @@ class Article():
             references = []
 
             for idx, ref in enumerate(rawrefs):
-                print("Processing citation %d/%d..." % (idx + 1, len(rawrefs)))
+                log.info("Processing citation %d/%d..." % (idx + 1, len(rawrefs)))
                 res = Article.crossref(ref["title"][0], ref["author"][0]["family"])
                 if res:
                     references.append(res)
                 else:
-                    print('Could not automatically retrieve reference {idx}'
+                    log.warn('Could not automatically retrieve reference {idx}'
                         ': "{title}" by {author} et al.: no DOI? wrong '
                         'reference parsing?'.format(idx=idx,
                                                     title=ref["title"][0], 
@@ -250,7 +262,7 @@ class Article():
     #
                 time.sleep(0.1)
 
-            print("Successfully fetched DOI for %d out of %d citations" % (len(references), len(rawrefs)))
+            log.info("Successfully fetched DOI for %d out of %d citations" % (len(references), len(rawrefs)))
             with references_path.open('w') as refs_fp:
                 json.dump(references, refs_fp)
             return references
@@ -266,12 +278,12 @@ class Article():
         Sets self.thumbnail_path to None if no thumbnail available.
         """
 
-        thumbnail_path = path / "thumbnail.jpg"
+        thumbnail_path = self.path / "thumbnail.jpg"
 
         if not thumbnail_path.exists():
 
             if self.has_pdf:
-                cmd_line = f"convert -thumbnail 200x200 -density 300 -background white -alpha remove {file_path}[0] {thumbnail}"
+                cmd_line = f"convert -thumbnail 200x200 -density 300 -background white -alpha remove {self.pdf_path}[0] {thumbnail_path}"
                 subprocess.run(cmd_line,shell=True)
                 self.thumbnail_path = thumbnail_path
             else:

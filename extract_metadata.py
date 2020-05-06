@@ -1,7 +1,20 @@
+import logging
+from rich.logging import RichHandler
+
+FORMAT = "%(message)s"
+logging.basicConfig(
+    level="NOTSET", format=FORMAT, datefmt="[%X] ", handlers=[RichHandler()]
+)
+
+log = logging.getLogger("rich")
+
+from rich.traceback import install
+install()
+
 import sys
 import subprocess
 
-import pypdf2
+import PyPDF2
 
 import xml.etree.ElementTree as ET
 
@@ -10,7 +23,7 @@ def extract_metadata(article_path):
 
     # Are the title + authors set in the metadata?
     # if so, it is quick and easy
-    pdfReader = PyPDF2.PdfFileReader(article_path)
+    pdfReader = PyPDF2.PdfFileReader(str(article_path))
     a = pdfReader.documentInfo["/Author"]
     t = pdfReader.documentInfo["/Title"]
     if a and t:
@@ -22,14 +35,14 @@ def extract_metadata(article_path):
     jats_filepath = article_dir / ("article.cermxml")
 
     if not jats_filepath.exists():
-        print("Running CERMINeR to extract PDF metadata...")
+        log.info("Running CERMINeR to extract PDF metadata...")
         cmd_line = f"java -cp cermine-impl-1.13-jar-with-dependencies.jar pl.edu.icm.cermine.ContentExtractor -path {article_dir}"
         try:
             result = subprocess.run(cmd_line,shell=True, capture_output=True, check=True)
             if "Invalid PDF file" in result.stderr.decode():
                 raise RuntimeError("The submitted PDF is invalid. Could not extract the metadata. Try to provide directly the name/DOI of the article") 
         except subprocess.CalledProcessError as cpe:
-            print(cpe.stderr)
+            log.error(cpe.stderr)
             raise cpe
 
         
@@ -81,7 +94,7 @@ def parse_jats(filepath):
                         "affiliations": affs
                         })
 
-    print("Found title <%s> by <%s>" % (title, ", ".join([a["name"] for a in authors])))
+    log.info("Found title <%s> by <%s>" % (title, ", ".join([a["name"] for a in authors])))
 
     return {"title": title,
             "authors": authors
