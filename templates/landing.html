@@ -15,7 +15,8 @@
         <script src="/static/js/dropzone.js"></script>
         <link href="/static/js/dropzone.css" rel="stylesheet">
 
-        <script src="/static/js/d3.v5.min.js"></script>
+        <!--<script src="/static/js/d3.v5.min.js"></script>-->
+        <script src="https://d3js.org/d3.v5.js"></script>
     </head>
 
     <body>
@@ -49,121 +50,202 @@ function get_article_network() {
     });
 }
 
-//            links = d3.csvParse(await FileAttachment("suits.csv").text())
-//
-//types = Array.from(new Set(links.map(d => d.type)))
-//
-//data = ({nodes: Array.from(new Set(links.flatMap(l => [l.source, l.target])), id => ({id})), links})
-//
-//height = 600
-//color = d3.scaleOrdinal(types, d3.schemeCategory10)
-//
-//chart = {
-//    const links = data.links.map(d => Object.create(d));
-//    const nodes = data.nodes.map(d => Object.create(d));
-//
-//    const simulation = d3.forceSimulation(nodes)
-//        .force("link", d3.forceLink(links).id(d => d.id))
-//        .force("charge", d3.forceManyBody().strength(-400))
-//        .force("x", d3.forceX())
-//        .force("y", d3.forceY());
-//
-//    const svg = d3.select("#viz")
-//        .append("svg")
-//        .attr("viewBox", [-width / 2, -height / 2, width, height])
-//        .style("font", "12px sans-serif");
-//
-//    // Per-type markers, as they don't inherit styles.
-//    svg.append("defs").selectAll("marker")
-//        .data(types)
-//        .join("marker")
-//        .attr("id", d => `arrow-${d}`)
-//        .attr("viewBox", "0 -5 10 10")
-//        .attr("refX", 15)
-//        .attr("refY", -0.5)
-//        .attr("markerWidth", 6)
-//        .attr("markerHeight", 6)
-//        .attr("orient", "auto")
-//        .append("path")
-//        .attr("fill", color)
-//        .attr("d", "M0,-5L10,0L0,5");
-//
-//    const link = svg.append("g")
-//        .attr("fill", "none")
-//        .attr("stroke-width", 1.5)
-//        .selectAll("path")
-//        .data(links)
-//        .join("path")
-//        .attr("stroke", d => color(d.type))
-//        .attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`);
-//
-//    const node = svg.append("g")
-//    .attr("fill", "currentColor")
-//    .attr("stroke-linecap", "round")
-//    .attr("stroke-linejoin", "round")
-//    .selectAll("g")
-//    .data(nodes)
-//    .join("g")
-//    .call(drag(simulation));
-//
-//    node.append("circle")
-//    .attr("stroke", "white")
-//    .attr("stroke-width", 1.5)
-//    .attr("r", 4);
-//
-//    node.append("text")
-//    .attr("x", 8)
-//    .attr("y", "0.31em")
-//    .text(d => d.id)
-//    .clone(true).lower()
-//    .attr("fill", "none")
-//    .attr("stroke", "white")
-//    .attr("stroke-width", 3);
-//
-//    simulation.on("tick", () => {
-//        link.attr("d", linkArc);
-//        node.attr("transform", d => `translate(${d.x},${d.y})`);
-//    });
-//
-//    invalidation.then(() => simulation.stop());
-//
-//    return svg.node();
-//}
-//function linkArc(d) {
-//    const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
-//    return `
-//          M${d.source.x},${d.source.y}
-//              A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
-//                `;
-//}
-//
-//drag = simulation => {
-//
-//    function dragstarted(d) {
-//        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-//        d.fx = d.x;
-//        d.fy = d.y;
-//    }
-//
-//    function dragged(d) {
-//        d.fx = d3.event.x;
-//        d.fy = d3.event.y;
-//    }
-//
-//    function dragended(d) {
-//        if (!d3.event.active) simulation.alphaTarget(0);
-//        d.fx = null;
-//        d.fy = null;
-//    }
-//
-//    return d3.drag()
-//        .on("start", dragstarted)
-//        .on("drag", dragged)
-//        .on("end", dragended);
-//}
-//
-//d3 = require("d3@5")
-//import {swatches} from "@d3/color-legend"
+
+//import * as d3 from "d3";
+
+
+var src = JSON.parse(`[
+            {"source":"article_a", "target":"author_b", "type":"authored_by"},
+            {"source":"article_a", "target":"author_c", "type":"authored_by"},
+            {"source":"article_a", "target":"anthropomorphism", "type":"has_keyword"},
+            {"source":"article_b", "target":"author_b", "type":"authored_by"}
+            ]`);
+
+types = Array.from(new Set(src.map(d => d.type)))
+data = ({nodes: Array.from(new Set(src.flatMap(l => [l.source, l.target])), id => ({id})), links:src})
+
+
+width = 600
+height = 600
+color = d3.scaleOrdinal(types, d3.schemeCategory10)
+
+
+
+function linkArc(d) {
+    const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
+    return `
+          M${d.source.x},${d.source.y}
+              A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
+                `;
+}
+
+drag = simulation => {
+
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+
+    function dragended(d) {
+        if (!d3.event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+
+    return d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended);
+}
+
+
+
+const links = data.links.map(d => Object.create(d));
+const nodes = data.nodes.map(d => Object.create(d));
+
+const simulation = d3.forceSimulation(nodes)
+    .force("link", d3.forceLink(links).id(d => d.id))
+    .force("charge", d3.forceManyBody().strength(-400))
+    .force("x", d3.forceX())
+    .force("y", d3.forceY());
+
+const svg = d3.select("#viz")
+    .append("svg")
+    .attr("viewBox", [-width / 2, -height / 2, width, height])
+    .style("font", "8px sans-serif");
+
+// Per-type markers, as they don't inherit styles.
+svg.append("defs").selectAll("marker")
+    .data(types)
+    .join("marker")
+    .attr("id", d => `arrow-${d}`)
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 15)
+    .attr("refY", -0.5)
+    .attr("markerWidth", 6)
+    .attr("markerHeight", 6)
+    .attr("orient", "auto")
+    .append("path")
+    .attr("fill", color)
+    .attr("d", "M0,-5L10,0L0,5");
+
+svg.append("g")
+    .attr("id", "svg_chart");
+
+const svg_chart = d3.select("#svg_chart");
+
+function createChart(svg_chart) {
+
+    // clear the chart
+    while (svg_chart.node().firstChild) {
+        svg_chart.node().removeChild(svg_chart.node().lastChild);
+    }
+
+    link = svg_chart.append("g")
+        .attr("fill", "none")
+        .attr("stroke-width", 1.5)
+        .selectAll("path")
+        .data(links)
+        .join("path")
+        .attr("stroke", d => color(d.type))
+        .attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`);
+
+    node = svg_chart.append("g")
+        .attr("fill", "currentColor")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-linejoin", "round")
+        .selectAll("g")
+        .data(nodes)
+        .join("g")
+        .call(drag(simulation))
+        .on("mouseover", function(d,i){
+            var mynode = {id:"node_" + nodes.length, x:0,y:0,vx:0,vy:0};
+            nodes.push(mynode);
+            links.push({source:d.id, target:mynode.id, type:"authored_by"});
+
+            simulation.stop();
+
+            simulation.nodes(nodes);
+
+            simulation.force("link").links(links);
+
+            simulation.alpha(1);
+            simulation.restart();
+
+            createChart(svg_chart);
+
+        });
+
+    node.append("circle")
+        .attr("stroke", "white")
+        .attr("stroke-width", 1.5)
+        .attr("r", 4);
+
+    node.append("text")
+        .attr("x", 8)
+        .attr("y", "0.31em")
+        .text(d => d.id)
+        .clone(true).lower()
+        .attr("fill", "none")
+        .attr("stroke", "white")
+        .attr("stroke-width", 3);
+
+    simulation.on("tick", () => {
+        link.attr("d", linkArc);
+        node.attr("transform", d => `translate(${d.x},${d.y})`);
+    });
+}
+
+createChart(svg_chart);
+
+//invalidation.then(() => simulation.stop());
+
+
+function addnode(node_id, parent_id, type){
+            
+  var newnode = new new_node(newid);
+  nodes.push(newnode);
+  var newlink = new new_link(rootid,newid);
+  links.push(newlink);
+            
+  //adds newest branch and draws it
+  link = svg.select("#branches").selectall(".link")
+    .data(links)
+  var linkenter = link  
+              .enter().append("line")
+              .attr("class","link");
+  link = linkenter.merge(link);
+            
+  //adds newest leaf  
+  node = svg.select("#leaves").selectall(".node")
+              .data(nodes)
+  var nodeenter = node
+              .enter().append("g")
+              .attr("class","node");
+            
+  //draws circle on newest leaf  
+  var circlesenter=nodeenter.append('circle')
+                 
+  node = nodeenter.merge(node);
+  circles = d3.selectall('circle');
+                
+  simulation.stop();
+                
+  simulation.nodes(nodes);
+              
+  simulation.force("link")
+    .links(links);
+  
+  simulation.alpha(1);
+              
+  restartsim();
+}
 
 
         </script>
